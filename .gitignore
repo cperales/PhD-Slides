@@ -9,6 +9,9 @@
 *.nav
 *.tex.backup
 
+# PDF
+*.pdf
+
 # Bibtex
 *.bbl
 *.blg
