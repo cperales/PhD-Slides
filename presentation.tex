@@ -93,23 +93,72 @@
 % Creates the cover page.
 \frame{\titlepage}
 
-\begin{frame}{Overview}
+\begin{frame}{Esquema}
 \tableofcontents
 \end{frame}
 
 
 % 45 minutos
 \section{Introducción} % 10 minutos
-\subsection{Inteligencia Artificial}
+\subsection{Aprendizaje automático (Machine Learning)}
 % 1
 \frame{
 	
-	\frametitle{Slide 1}
+	\frametitle{Inteligencia artificial. Machine Learning}
 	
-	\blindtext
+	Qué es la inteligencia artificial. \\
+	
+	Cómo se enmarca el Machine Learning en la Inteligencia Artificial
 	
 }
-\subsection{Aprendizaje supervisado (Machine Learning)}
+\subsection{Categorías del Aprendizaje Automático}
+\frame{
+	
+	\frametitle{Machine Learning}
+	
+	\begin{itemize}
+		\item Supervisado
+		\begin{itemize}
+			\item Regression
+			\item Classificación
+		\end{itemize}
+		\item No supervisado
+		\begin{itemize}
+			\item Asociación
+			\item Agrupación
+			\item Self-organizing maps
+		\end{itemize}
+		\item Por refuerzo
+	\end{itemize}
+
+En esta tesis, ML supervisado para regresión y clasificación.
+	
+}
+
+\frame{
+\frametitle{Supervised Machine Learning}
+
+Conjunto de datos de entrenamiento $\mathcal{D} = \{  (\boldsymbol{x}_1, y_1), \ldots (\boldsymbol{x}_N, y_N) \} = \{ (\boldsymbol{x}_n, y_n) \}_{n=1}^N$. Buscamos un predictor $f : \mathcal{X} \rightarrow \mathcal{Y}$,
+
+\begin{equation}
+\label{eq:f}
+f (\boldsymbol{x}) \approx y .
+\end{equation}
+
+Hay muchos predictores posibles. Además, dependiendo del problema (regresión o clasificación), esa variable $y$ puede ser una variable numérica, categórica o un vector. 
+}
+\frame{
+Es decir, no podemos conocer exactamente la relación entre el dominio de las features, $\mathcal{X}$, y el dominio target, $\mathcal{Y}$. Sin embargo, podemos interpolar esos dominios a través del conocimiento de algunas de esas relaciones entre features, $\boldsymbol{x} \in \mathcal{X}$, y variable a predecir, $\boldsymbol{y} \in \mathcal{Y}$.
+
+Para entrenar un predictor, minimizamos el error cometido en predecir una serie de valores, que conocemos del set de entrenamiento $\mathcal{D}$.
+
+\begin{equation}
+\label{eq:omega_error}
+\min_{\theta \in \Theta} \text{Error} ( \left( f(\boldsymbol{x}_1; \theta ), t_1 \right), \ldots, \left( f(\boldsymbol{x}_N; \theta ), t_N \right) )
+\end{equation}
+}
+
+
 \subsection{Supervised Machine Learning}
 
 \section{Ensemble learning} % 5 minutos
