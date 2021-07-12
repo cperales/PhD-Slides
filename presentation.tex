@@ -100,22 +100,21 @@
 
 % 45 minutos
 \section{Introducción} % 10 minutos
+
 \subsection{Aprendizaje automático (Machine Learning)}
 % 1
-\frame{
+\frame{\frametitle{Inteligencia artificial. Machine Learning}
 	
-	\frametitle{Inteligencia artificial. Machine Learning}
-	
-	Qué es la inteligencia artificial. \\
+	Qué es la inteligencia artificial. Definición. \\
 	
 	Cómo se enmarca el Machine Learning en la Inteligencia Artificial
 	
 }
+
 \subsection{Categorías del Aprendizaje Automático}
-\frame{
-	
-	\frametitle{Machine Learning}
-	
+
+\frame{\frametitle{Machine Learning}
+
 	\begin{itemize}
 		\item Supervisado
 		\begin{itemize}
@@ -158,12 +157,87 @@ Para entrenar un predictor, minimizamos el error cometido en predecir una serie 
 \end{equation}
 }
 
+\frame{
+En problemas de regresión, clásicamente se utiliza el error cuadrático medio, o \textit{Mean Squared Error}, que es equivalente a calcular la norma $L2$ entre el conjunto de variables targety el conjunto predicho de variables reales, y el conjunto
+}
 
-\subsection{Supervised Machine Learning}
+\subsection{Dilema sesgo-varianza}
 
-\section{Ensemble learning} % 5 minutos
+\frame{\frametitle{Definición de sesgo y varianza}
+
+Explicación sesgo
+
+Explicación varianza
+
+}
+
+\frame{\frametitle{Sesgo, varianza y el MSE}
+	
+	Ecuación matemática con el MSE
+	
+}
+
+\frame{\frametitle{Ejemplo del sesgo y la varianza}
+	
+Ejemplo hecho con el Jupyter Notebook
+	
+}
+
+\section{Ensemble Learning}
+
+\frame{\frametitle{Metodología ensemble}
+
+Motivación a través del sesgo-varianza.
+
+Motivación a través de la diversidad.
+
+}
+
+\frame{\frametitle{Metodología boosting}
+
+Ejemplo de la carrera de caballos (artículo original del Adaboost).
+
+}
+
+\frame{\frametitle{Metodología bagging}
+	
+Buscar ejemplo
+	
+}
+
+
+\frame{\frametitle{Ventajas-desventajas del data sampling}
+
+\textbf{Ventaja:}	
+Es fácil de adaptar a cualquier algoritmo. No modifica \textit{la caja negra}, es externo.
+
+\textbf{Desventaja:}
+Depende en la heterogeneidad de los datos. Hay que tener muchos datos y que cada subset del conjunto de entrenamiento sea diverso entre sí.
+
+	
+}
+
+\frame{\frametitle{Propuestas no data sampling}
+	
+\begin{itemize}
+	\item Diversidad kernel.
+	\item Diversidad de parámetros. NCL.
+\end{itemize}
+	
+	
+}
 
 \section{Extreme Learning Machine}  % 5 minutos
+\frame{\frametitle{Ordinary Least Squares}
+}
+
+\frame{\frametitle{Regularized Least Squares}
+}
+
+\frame{\frametitle{Extreme Learning Machine}
+}
+
+
 
 
 \section{Promoción de la diversidad explícita en ELM}  % 20 minutos
