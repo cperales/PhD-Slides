@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 %\usepackage[english]{babel}
+\usepackage{graphicx}  % Graphics
 
 \usepackage{beamerthemeULoyola}
 \usepackage{graphicx}
@@ -103,12 +104,19 @@
 
 \subsection{Aprendizaje automático (Machine Learning)}
 % 1
-\frame{\frametitle{Inteligencia artificial. Machine Learning}
+\frame[allowframebreaks]{\frametitle{Inteligencia artificial. Machine Learning}
 	
-	Qué es la inteligencia artificial. Definición. \\
+	\textbf{Ciencia de la Computación}: aquella que estudia el diseño y la construcción de máquinas (computadoras) que resuelven problemas, y cuáles de estos problemas son tratables \cite{mitchell2006discipline}. Dentro de esta Ciencia, un área que acoge cada vez más importante es: el Aprendizaje Automático (\textit{Machine Learning}). \\
 	
-	Cómo se enmarca el Machine Learning en la Inteligencia Artificial
+	\textbf{Aprendizaje Automático (\textit{Machine Learning})}: area de conocimiento que utiliza las Matemáticas para elaborar modelos que estudian qué puede ser predicho a través de los datos, con una serie de hipótesis de modelado, y con qué confiabilidad \cite{mitchell2006discipline}.
 	
+	\begin{figure}[H]
+		\centering
+		\label{fig:nested}
+		\includegraphics[scale=0.5]{images/nested.pdf}
+%		\caption{Explicación del sesgo y la varianza como distancia al centro de una diana}
+	\end{figure}
+
 }
 
 \subsection{Categorías del Aprendizaje Automático}
@@ -116,49 +124,69 @@
 \frame{\frametitle{Machine Learning}
 
 	\begin{itemize}
-		\item Supervisado
+		\item Supervisado: se infiere una función que relacione variables de entrada (\textit{input variables}) y variables de salida (\textit{targets}), usando datos de situaciones previas donde estos datos pueden ser recogidos \cite{supervised_dict}.
 		\begin{itemize}
-			\item Regression
-			\item Classificación
+			\item Regression: target numérico.
+			\item Classificación: target categórico.
 		\end{itemize}
-		\item No supervisado
-		\begin{itemize}
-			\item Asociación
-			\item Agrupación
-			\item Self-organizing maps
-		\end{itemize}
-		\item Por refuerzo
+		\item No supervisado: se infiere la estructura que tiene un conjunto de datos, en ausencia de un target o un feedback \cite{unsupervised_dict}. Los elementos son agrupados siguiendo relaciones entre las variables (\textit{Principal Component Analysis}, \textit{K-means}, $\ldots$).
+		\item Por refuerzo:  busca aprender un patrón de comportamiento a través de problemas de toma de decisiones secuenciales con recompensas \cite{reinforcement_dict}.
 	\end{itemize}
-
-En esta tesis, ML supervisado para regresión y clasificación.
 	
 }
 
-\frame{
+\frame[allowframebreaks]{
 \frametitle{Supervised Machine Learning}
 
 Conjunto de datos de entrenamiento $\mathcal{D} = \{  (\boldsymbol{x}_1, y_1), \ldots (\boldsymbol{x}_N, y_N) \} = \{ (\boldsymbol{x}_n, y_n) \}_{n=1}^N$. Buscamos un predictor $f : \mathcal{X} \rightarrow \mathcal{Y}$,
 
+
+	\begin{figure}[H]
+	\centering
+	\label{fig:f}
+	\includegraphics[scale=0.25]{images/f.pdf}
+	%		\caption{Explicación del sesgo y la varianza como distancia al centro de una diana}
+	\end{figure}
+
+Hay muchos predictores posibles. Además, dependiendo del problema (regresión o clasificación), esa variable $y$ puede ser una variable numérica o categórica. Los problemas de clasificación se pueden convertir en multi-regresión a través del \textit{One-Hot-Encoding} \cite{one_hot_encoding}.
+
+
 \begin{equation}
-\label{eq:f}
-f (\boldsymbol{x}) \approx y .
+\label{eq:onehotencoding}
+\boldsymbol{y}_{j, n} =
+\begin{cases}
+1 & \text{si } j \text{ es la clase a la que pertenece el patrón} n \\
+0 & \text{en cualquier otro caso}
+\end{cases}
 \end{equation}
 
-Hay muchos predictores posibles. Además, dependiendo del problema (regresión o clasificación), esa variable $y$ puede ser una variable numérica, categórica o un vector. 
 }
 \frame{
-Es decir, no podemos conocer exactamente la relación entre el dominio de las features, $\mathcal{X}$, y el dominio target, $\mathcal{Y}$. Sin embargo, podemos interpolar esos dominios a través del conocimiento de algunas de esas relaciones entre features, $\boldsymbol{x} \in \mathcal{X}$, y variable a predecir, $\boldsymbol{y} \in \mathcal{Y}$.
+En general, no podemos conocer exactamente la relación entre el dominio de las features, $\mathcal{X}$, y el dominio target, $\mathcal{Y}$. Sin embargo, podemos interpolar esos dominios a través de $n=1, \ldots, N$ patrones, con features $\boldsymbol{x}_n \in \mathcal{X}$, y target $\boldsymbol{y}_n \in \mathcal{Y}$.
 
-Para entrenar un predictor, minimizamos el error cometido en predecir una serie de valores, que conocemos del set de entrenamiento $\mathcal{D}$.
+
+\begin{equation}
+\label{eq:f}
+f (\boldsymbol{x}_n; \theta) \approx y_n, \: \forall n .
+\end{equation}
+
+Los predictores $f$ dependen de una serie de parámetros $\theta$. Para entrenar un predictor, optimizamos esos parámetros a través de la minimización del error cometido en predecir el set de entrenamiento $\mathcal{D}$.
 
 \begin{equation}
 \label{eq:omega_error}
-\min_{\theta \in \Theta} \text{Error} ( \left( f(\boldsymbol{x}_1; \theta ), t_1 \right), \ldots, \left( f(\boldsymbol{x}_N; \theta ), t_N \right) )
+\min_{\theta} \text{ Error} ( \left( f(\boldsymbol{x}_1; \theta ), y_1 \right), \ldots, \left( f(\boldsymbol{x}_N; \theta ), y_N \right) )
 \end{equation}
 }
 
 \frame{
-En problemas de regresión, clásicamente se utiliza el error cuadrático medio, o \textit{Mean Squared Error}, que es equivalente a calcular la norma $L2$ entre el conjunto de variables targety el conjunto predicho de variables reales, y el conjunto
+En problemas de regresión, clásicamente se utiliza el error cuadrático medio, o \textit{Mean Squared Error}, que es equivalente a calcular la norma $L2$ entre el target $y_n, \: n=1, \ldots, N$ y la predicción $f (\boldsymbol{x}_n), \:n=1, \ldots, N$.
+
+\begin{equation}
+\label{eq:mse}
+\min_{\theta} \frac{1}{N} \sum_{n=1}^{N} { \left( f(\boldsymbol{x}_n; \theta ) - y_1 \right) }^2
+\end{equation}
+
+
 }
 
 \subsection{Dilema sesgo-varianza}
@@ -263,7 +291,7 @@ Depende en la heterogeneidad de los datos. Hay que tener muchos datos y que cada
 \begin{frame}[allowframebreaks]
 	\frametitle{References}
     \bibliographystyle{ieeetr}
-	\bibliography{workshop_bib.bib}
+	\bibliography{references.bib}
 \end{frame}
 
 
