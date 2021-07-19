@@ -6,6 +6,7 @@
 %\usepackage[english]{babel}
 \usepackage{graphicx}  % Graphics
 \usepackage{epstopdf}
+\usepackage{bm}
 
 \usepackage{beamerthemeULoyola}
 \usepackage{graphicx}
@@ -74,15 +75,22 @@
 %       v
 \author[C. Perales-González]
 {   % Author names which appear in the cover page.
-    Carlos Perales-Gonz\'alez\inst{1}
+    Carlos Perales-Gonz\'alez
 }
 %          + Short affiliation which appears in the slides.
 %          v
 \institute[ULOYOLA]
 {   % Affiliation information which appears in the cover page.
+\hfill
+	
     \begin{tabular}{c}
-    \inst{1}Universidad Loyola Andaluc\'ia
+%    \inst{1}Universidad Loyola Andaluc\'ia \\
+    David Becerra-Alonso \\
+    Francisco Fernández-Navarro \\
+    Mariano Carbonero-Ruz \\        
     \end{tabular}
+
+\hfill
 }
 %     + Short acronym of the conference or date of the presentation.
 %     v
@@ -139,7 +147,7 @@
 \frame[allowframebreaks]{
 \frametitle{Supervised Machine Learning}
 
-Conjunto de datos de entrenamiento $\mathcal{D} = \{  (\boldsymbol{x}_1, y_1), \ldots (\boldsymbol{x}_N, y_N) \} = \{ (\boldsymbol{x}_n, y_n) \}_{n=1}^N$. Buscamos un predictor $f : \mathcal{X} \rightarrow \mathcal{Y}$,
+Conjunto de datos de entrenamiento $\mathcal{D} = \{  ( \mathbf{x}_1, y_1), \ldots (\mathbf{x}_N, y_N) \} = \{ (\mathbf{x}_n, y_n) \}_{n=1}^N$. Buscamos un predictor $f : \mathcal{X} \rightarrow \mathcal{Y}$,
 
 
 	\begin{figure}[H]
@@ -156,7 +164,7 @@ Los problemas de clasificación se pueden convertir en multi-regresión a travé
 
 %\begin{equation}
 %\label{eq:onehotencoding}
-%\boldsymbol{y}_{j, n} =
+%\mathbf{y}_{j, n} =
 %\begin{cases}
 %1 & \text{si } j \text{ es la clase a la que pertenece el patrón} n \\
 %0 & \text{en cualquier otro caso}
@@ -165,28 +173,28 @@ Los problemas de clasificación se pueden convertir en multi-regresión a travé
 
 }
 \frame{
-En general, no podemos conocer exactamente la relación entre el dominio de las features, $\mathcal{X}$, y el dominio target, $\mathcal{Y}$. Pero podemos interpolar esos dominios conociendo $N$ patrones, % con features $\boldsymbol{x}_n \in \mathcal{X}$, y target $\boldsymbol{y}_n \in \mathcal{Y}$.
+En general, no podemos conocer exactamente la relación entre el dominio de las features, $\mathcal{X}$, y el dominio target, $\mathcal{Y}$. Pero podemos interpolar esos dominios conociendo $N$ patrones, % con features $\mathbf{x}_n \in \mathcal{X}$, y target $\mathbf{y}_n \in \mathcal{Y}$.
 
 
 \begin{equation}
 \label{eq:f}
-f (\boldsymbol{x}_n; \theta) \approx y_n, \: \forall n .
+f (\mathbf{x}_n; \theta) \approx y_n, \: \forall n .
 \end{equation}
 
 Los predictores $f$ dependen de una serie de parámetros $\theta$. Para entrenar un predictor, optimizamos esos parámetros a través de la minimización del error cometido en predecir el set de entrenamiento $\mathcal{D}$.
 
 \begin{equation}
 \label{eq:omega_error}
-\min_{\theta} \text{ Error} ( \left( f(\boldsymbol{x}_1; \theta ), y_1 \right), \ldots, \left( f(\boldsymbol{x}_N; \theta ), y_N \right) )
+\min_{\theta} \text{ Error} ( \left( f(\mathbf{x}_1; \theta ), y_1 \right), \ldots, \left( f(\mathbf{x}_N; \theta ), y_N \right) )
 \end{equation}
 }
 
 %\frame{
-%En problemas de regresión, clásicamente se utiliza el error cuadrático medio, o \textit{Mean Squared Error}, que es equivalente a calcular la norma $L2$ entre el target $y_n, \: n=1, \ldots, N$ y la predicción $f (\boldsymbol{x}_n), \:n=1, \ldots, N$.
+%En problemas de regresión, clásicamente se utiliza el error cuadrático medio, o \textit{Mean Squared Error}, que es equivalente a calcular la norma $L2$ entre el target $y_n, \: n=1, \ldots, N$ y la predicción $f (\mathbf{x}_n), \:n=1, \ldots, N$.
 %
 %\begin{equation}
 %\label{eq:mse}
-%\min_{\theta} \frac{1}{N} \sum_{n=1}^{N} { \left( f(\boldsymbol{x}_n; \theta ) - y_1 \right) }^2
+%\min_{\theta} \frac{1}{N} \sum_{n=1}^{N} { \left( f(\mathbf{x}_n; \theta ) - y_1 \right) }^2
 %\end{equation}
 %
 %
@@ -214,7 +222,7 @@ Los predictores $f$ dependen de una serie de parámetros $\theta$. Para entrenar
 %	
 %}
 
-\section{Ensemble Learning}
+\subsection{Ensemble Learning}
 
 \frame[allowframebreaks]{\frametitle{Metodología ensemble}
 
@@ -300,7 +308,7 @@ La estrategia de ensemble learning más usada es la de data sampling. La princip
 }
 
 
-\section{Extreme Learning Machine}  % 5 minutos
+\subsection{Extreme Learning Machine}  % 5 minutos
 
 \frame[allowframebreaks]{\frametitle{Extreme Learning Machine}
 
@@ -308,16 +316,16 @@ El predictor es de la siguiente forma:
 	
 	\begin{equation}
 		\label{eq:elm}
-		f(\boldsymbol{x}) = h(\boldsymbol{x})' \boldsymbol{\beta}
+		f(\mathbf{x}) = h(\mathbf{x})' \mathbf{\beta}
 	\end{equation}
 	
 Donde:
 	
 \begin{itemize}
-	\item $\boldsymbol{x} \in \mathbb{R}^K$.
+	\item $\mathbf{x} \in \mathbb{R}^K$.
 	\item $y \in \mathbb{R}$.
-	\item $h: \mathbb{R}^K \rightarrow \mathbb{R}^D$, ${h}(\boldsymbol{x}) = (\phi(\boldsymbol{x};\boldsymbol{w}_{d},b_{d}),d = 1,\ldots,D)$,
-	\item $\boldsymbol{\beta} \in \mathbb{R}^{D \times 1}$.
+	\item $h: \mathbb{R}^K \rightarrow \mathbb{R}^D$, ${h}(\mathbf{x}) = (\phi(\mathbf{x};\mathbf{w}_{d},b_{d}),d = 1,\ldots,D)$,
+	\item $\mathbf{\beta} \in \mathbb{R}^{D \times 1}$.
 \end{itemize}
 
 	
@@ -332,14 +340,14 @@ Y el problema de minimización asociado es
 
 
 \begin{equation}
-	\min_{\boldsymbol{\beta}} {\lVert \boldsymbol{H} \boldsymbol{\beta} - \boldsymbol{Y} \rVert}_2^2 + C {\lVert \boldsymbol{\beta} \rVert}_2^2.
+	\min_{\mathbf{\beta}} {\lVert \mathbf{H} \mathbf{\beta} - \mathbf{Y} \rVert}_2^2 + C {\lVert \mathbf{\beta} \rVert}_2^2.
 \end{equation}
 
 Donde:
 
 \begin{itemize}
 	\item ${\lVert \cdot \rVert}_2$ es la norma $L2$ o norma euclídea.
-	\item $\boldsymbol{H} = \left(\boldsymbol{h}' \left(\boldsymbol{x}_{1}\right), \ldots, \boldsymbol{h}' \left(\boldsymbol{x}_{N}\right)\right)'$.
+	\item $\mathbf{H} = \left(\mathbf{h}' \left(\mathbf{x}_{1}\right), \ldots, \mathbf{h}' \left(\mathbf{x}_{N}\right)\right)'$.
 	\item $Y = (y_1, \ldots, y_N)'$. 
 	\item $C \ge 0$ es un hiper-parámetro de regularización.
 \end{itemize}
@@ -348,7 +356,7 @@ Y la solución es:
 
 \begin{equation}
 \label{eq:solucion_elm}
-\boldsymbol{\beta} = \left( \boldsymbol{H}' \boldsymbol{H} + C \boldsymbol{I} \right)^{-1} \boldsymbol{H}' \boldsymbol{Y}
+\mathbf{\beta} = \left( \mathbf{H}' \mathbf{H} + C \mathbf{I} \right)^{-1} \mathbf{H}' \mathbf{Y}
 \end{equation}
 }
 
@@ -361,31 +369,31 @@ Y la solución es:
 	
 	\begin{equation}
 	\label{eq:cosine}
-	 \cos\left(\angle\left(\boldsymbol{u},\boldsymbol{v}\right)\right) = \frac{\left\langle \boldsymbol{u},\boldsymbol{v}\right\rangle }{\left\Vert \boldsymbol{u}\right\Vert \left\Vert \boldsymbol{v}\right\Vert } \in [-1, 1],
+	 \cos\left(\angle\left(\mathbf{u},\mathbf{v}\right)\right) = \frac{\left\langle \mathbf{u},\mathbf{v}\right\rangle }{\left\Vert \mathbf{u}\right\Vert \left\Vert \mathbf{v}\right\Vert } \in [-1, 1],
 	\end{equation}
 	
-	El cuadrado del producto escalar de dos vectores será $0$ si los vectores son perpendiculares, $\boldsymbol{u} \perp \boldsymbol{v}$, y la norma de estos al cuadrado si los vectores son paralelos, $\boldsymbol{u} \parallel \boldsymbol{v}$.
+	El cuadrado del producto escalar de dos vectores será $0$ si los vectores son perpendiculares, $\mathbf{u} \perp \mathbf{v}$, y la norma de estos al cuadrado si los vectores son paralelos, $\mathbf{u} \parallel \mathbf{v}$.
 	
 	\begin{equation}
 	\label{eq:diversity_vector}
-	0 \le \left\langle \boldsymbol{u},\boldsymbol{v}\right\rangle ^{2} \le \left\Vert \boldsymbol{u}\right\Vert ^{2}\left\Vert \boldsymbol{v}\right\Vert ^{2}.
+	0 \le \left\langle \mathbf{u},\mathbf{v}\right\rangle ^{2} \le \left\Vert \mathbf{u}\right\Vert ^{2}\left\Vert \mathbf{v}\right\Vert ^{2}.
 	\end{equation}
 	
 	Esta primera propuesta toma ese producto escalar al cuadrado y lo incluye en la función a minimizar,
 	
 	\begin{equation}
 	\label{eq:Diverse_matrix_ELM_min}
-	\min_{\boldsymbol{\beta}^{(s)}\in \mathbb{R}^{D \times 1}}  \left( {\lVert \boldsymbol{\beta}^{(s)} \rVert}^2 + C {\lVert\boldsymbol{H}\boldsymbol{\beta}^{(s)}-\boldsymbol{Y}\rVert}^2 + N \sum_{k=1}^{s-1} \alpha_{k}  \left\langle\boldsymbol{\beta}^{(s)} , \boldsymbol{u}^{(k)}\right\rangle^2 \right).
+	\min_{\mathbf{\beta}^{(s)}\in \mathbb{R}^{D \times 1}}  \left( {\lVert \mathbf{\beta}^{(s)} \rVert}^2 + C {\lVert\mathbf{H}\mathbf{\beta}^{(s)}-\mathbf{Y}\rVert}^2 + N \sum_{k=1}^{s-1} \alpha^{(k)}  \left\langle\mathbf{\beta}^{(s)} , \mathbf{u}^{(k)}\right\rangle^2 \right).
 	\end{equation}
 
-	Con $\boldsymbol{u}^{(k)} = \frac{\boldsymbol{\beta}^{(k)}}{\lVert \boldsymbol{\beta}^{(k)} \rVert}$. Se proponen los parámetros $\alpha_s, \: s=1,\ldots,S$, tanto como pesos de la diversidad en la minimización como pesos en la predicción final,
+	Con $\mathbf{u}^{(k)} = \frac{\mathbf{\beta}^{(k)}}{\lVert \mathbf{\beta}^{(k)} \rVert}$. Se proponen los parámetros $\alpha^{(s)}, \: s=1,\ldots,S$, tanto como pesos de la diversidad en la minimización como pesos en la predicción final,
 	
 	
 	\begin{equation}
-	f(\boldsymbol{x}) = \sum_{s=1}^{S} \alpha_{s}\left(\boldsymbol{h}'\left(\boldsymbol{x}\right)\boldsymbol{\beta}^{(s)}\right).
+	f(\mathbf{x}) = \sum_{s=1}^{S} \alpha^{(s)} \left(\mathbf{h}'\left(\mathbf{x}\right)\mathbf{\beta}^{(s)}\right).
 	\end{equation}	
 	
-	Como normalizamos la salida de todos los pesos, $\sum_{s=1}^S \alpha_s = 1$, podemos escribir un solo valor $\alpha$ usando la progresión geométrica.
+	Como normalizamos la salida de todos los pesos, $\sum_{s=1}^S \alpha^{(s)} = 1$, podemos escribir un solo valor $\alpha$ usando la progresión geométrica.
 	
 	 
 %	 \begin{equation}
@@ -397,29 +405,29 @@ Y la solución es:
 
 	 \begin{equation}
 	 \label{eq:solucion_elm}
-	 \boldsymbol{\beta} = \left( \boldsymbol{H}' \boldsymbol{H} + C \boldsymbol{I} \right)^{-1} \boldsymbol{H}' \boldsymbol{Y}.
+	 \mathbf{\beta}^{(s)} = \left( \mathbf{H}' \mathbf{H} + C \mathbf{I} \right)^{-1} \mathbf{H}' \mathbf{Y}.
 	 \end{equation}
 	 
-	 Solo se realiza un cálculo de la inversa de la matriz original, y el resto de las inversas se calculan mediante la fórmula de Sherman-Morrison\cite{hager1989updating}. Para una matriz $\boldsymbol{M} \in \mathbb{R}^{L \times L}$ y dos vectores columna $\boldsymbol{u}, \boldsymbol{v} \in \mathbb{R}^{L}$, se puede escribir la inversa de la matriz $\boldsymbol{M} + \boldsymbol{u} \boldsymbol{v}'$ como
+	 Solo se realiza un cálculo de la inversa de la matriz original, y el resto de las inversas se calculan mediante la fórmula de Sherman-Morrison\cite{hager1989updating}. Para una matriz $\mathbf{M} \in \mathbb{R}^{L \times L}$ y dos vectores columna $\mathbf{u}, \mathbf{v} \in \mathbb{R}^{L}$, se puede escribir la inversa de la matriz $\mathbf{M} + \mathbf{u} \mathbf{v}'$ como
 	 
 	 \begin{equation}
 	 \label{eq:sherman-morrison}
-	 {\left( \boldsymbol{M} + \boldsymbol{u} \boldsymbol{v}' \right)}^{-1} = \boldsymbol{M}^{-1} - \frac{\boldsymbol{M}^{-1} \boldsymbol{u} \boldsymbol{v}' \boldsymbol{M}^{-1}}{1 + \boldsymbol{v}' \boldsymbol{M}^{-1} \boldsymbol{u} }.
+	 {\left( \mathbf{M} + \mathbf{u} \mathbf{v}' \right)}^{-1} = \mathbf{M}^{-1} - \frac{\mathbf{M}^{-1} \mathbf{u} \mathbf{v}' \mathbf{M}^{-1}}{1 + \mathbf{v}' \mathbf{M}^{-1} \mathbf{u} }.
 	 \end{equation}
 	 
 	 En el caso de nuestra propuesta RE-ELM, el resto de elementos del ensemble se calculan como
 	 
 	 
 	 \begin{equation}
-	 \boldsymbol{\beta}^{(s)} = \left(\boldsymbol{A}^{(s)}\right)^{-1}\boldsymbol{H}'\boldsymbol{Y},
+	 \mathbf{\beta}^{(s)} = \left(\mathbf{A}^{(s)}\right)^{-1}\mathbf{H}'\mathbf{Y},
 	 \end{equation}
 	 
-	 donde $\left(\boldsymbol{A}^{(s)}\right)^{-1}$ es
+	 donde $\left(\mathbf{A}^{(s)}\right)^{-1}$ es
 	 
 	 \begin{equation}
 	 \tiny
-\left(\boldsymbol{A}^{(s)}\right)^{-1} =
-\left(\boldsymbol{I} - \frac{ \left(\boldsymbol{A}^{(s-1)}\right)^{-1}  \left(\boldsymbol{\beta}^{(s-1)} \right)'\boldsymbol{\beta}^{(s-1)}}{{ \frac{C}{n \alpha_{s-1}} \lVert \boldsymbol{\beta}^{(s-1)} \rVert}^{2} + \left(\boldsymbol{\beta}^{(s-1)} \right)' \left(\boldsymbol{A}^{(s-1)}\right)^{-1} \boldsymbol{\beta}^{(s-1)}}   \right)\left(\boldsymbol{A}^{(s-1)}\right)^{-1}.
+\left(\mathbf{A}^{(s)}\right)^{-1} =
+\left(\mathbf{I} - \frac{ \left(\mathbf{A}^{(s-1)}\right)^{-1}  \left(\mathbf{\beta}^{(s-1)} \right)'\mathbf{\beta}^{(s-1)}}{{ \frac{C}{n \alpha_{s-1}} \lVert \mathbf{\beta}^{(s-1)} \rVert}^{2} + \left(\mathbf{\beta}^{(s-1)} \right)' \left(\mathbf{A}^{(s-1)}\right)^{-1} \mathbf{\beta}^{(s-1)}}   \right)\left(\mathbf{A}^{(s-1)}\right)^{-1}.
 \end{equation}
 
 
@@ -427,7 +435,7 @@ Y la solución es:
 %La predicción final es
 %
 %\begin{equation}
-%f(\boldsymbol{x}) = \sum_{s=1}^{S} \alpha_{s}\left(\boldsymbol{h}'\left(\boldsymbol{x}\right)\boldsymbol{\beta}^{(s)}\right).
+%f(\mathbf{x}) = \sum_{s=1}^{S} \alpha_{s}\left(\mathbf{h}'\left(\mathbf{x}\right)\mathbf{\beta}^{(s)}\right).
 %\end{equation}
 
 }
@@ -484,29 +492,40 @@ Y la solución es:
 
 \frame[allowframebreaks]{\frametitle{NC-ELM}
 	
-	Diversidad de la predicción de cada elemento del ensemble sobre conjunto de entrenamiento con respecto al total, $\boldsymbol{F}$.
+	Diversidad de la predicción de cada elemento del ensemble sobre conjunto de entrenamiento con respecto al total, $\mathbf{F}$. 	
+	La solución se construye $r = 1, \ldots, R$ iteraciones,
 	
-	En la primera iteración, son ELM con funciones de mapeo distintas (diversidad kernel). En las siguientes iteraciones,
+	\begin{equation}
+	\mathbf{f}_{(r)}( \mathbf{x} )=\frac 1 S \sum_{s=1}^S \mathbf{h}^{(s)'}(\mathbf{x}) {\mathbf{\beta}}_{(r)}^{(s)},
+	\end{equation} 
+	
+	En la primera iteración, son ELM con funciones de mapeo distintas (diversidad kernel):
+	
+		\begin{equation}
+	\label{eq:Diverse_matrix_ELM_min}
+	\min_{\mathbf{\beta}^{(s)}_{(1)} \in \mathbb{R}^{D \times 1}}  C {\lVert \mathbf{\beta}^{(s)}_{(1)} \rVert}^2 + {\lVert\mathbf{H}^{(s)} \mathbf{\beta}^{(s)}_{(1)}-\mathbf{Y}\rVert}^2.
+	\end{equation}
+	
+%	\begin{equation}
+%		\boldsymbol{F}_{(1)} = \left( \frac{1}{S} \sum_{s=1}^S f^{(s)}_{(1)} (\boldsymbol{x}_{1}), \ldots, \frac{1}{S} \sum_{s=1}^S f^{(s)}_{(1)} (\boldsymbol{x}_N) \right)' 
+%	\end{equation}
+	
+	Con $ \mathbf{F}_{(r-1)}$ como la suma de las predicciones del ensemble sobre el set de entrenamiento. 
+	 En las siguientes iteraciones,
 	
 	\begin{equation}
 	\label{eq:bj}
-	\min_{\boldsymbol{\beta}^{(s)}_{(r)}}  \Vert\boldsymbol{H}^{(s)}\boldsymbol{\beta}^{(s)}_{(r)} - \boldsymbol{Y} \Vert^2 + C \Vert \boldsymbol{\beta}^{(s)}_{(r)} \Vert^2 + \lambda\left \langle  \boldsymbol{H}^{(s)}\boldsymbol{\beta}^{(s)}_{(r)}, \boldsymbol{F}_{(r-1)}\right \rangle^2 .
+	\min_{\mathbf{\beta}^{(s)}_{(r)}}  \Vert\mathbf{H}^{(s)}\mathbf{\beta}^{(s)}_{(r)} - \mathbf{Y} \Vert^2 + C \Vert \mathbf{\beta}^{(s)}_{(r)} \Vert^2 + \lambda\left \langle  \mathbf{H}^{(s)}\mathbf{\beta}^{(s)}_{(r)}, \mathbf{F}_{(r-1)}\right \rangle^2 .
 	\end{equation}
 	
-	La solución se construye $r = 1, \ldots$ iteraciones,
+	La solución es iterada, y para cada elemento,
 	
 	\begin{equation}
-	\boldsymbol{f}_{(r)}( \boldsymbol{x} )=\frac 1 S \sum_{s=1}^S \boldsymbol{h}^{(s)'}(\boldsymbol{x}) {\boldsymbol{\beta}}_{(r)}^{(s)},
-	\end{equation} 
-	
-	Con $ \boldsymbol{F}_{(r-1)}$ como la suma de las predicciones del ensemble sobre el set de entrenamiento. La solución es iterada, y para cada elemento,
-	
-	\begin{equation}
-\boldsymbol{A}_{j, (r)}^{(s)} = \left( \frac{\boldsymbol{I}}{C}+\boldsymbol{H}^{(s)'}\boldsymbol{H}^{(s)}+\frac{\lambda}{C}\boldsymbol{H}^{(s)'}\boldsymbol{F}_{j, (r-1)} \boldsymbol{F}_{j, (r-1)}^{'} \boldsymbol{H}^{(s)} \right)
+\mathbf{A}_{j, (r)}^{(s)} = \left( \frac{\mathbf{I}}{C}+\mathbf{H}^{(s)'}\mathbf{H}^{(s)}+\frac{\lambda}{C}\mathbf{H}^{(s)'}\mathbf{F}_{j, (r-1)} \mathbf{F}_{j, (r-1)}^{'} \mathbf{H}^{(s)} \right)
 	\end{equation}
 	
 	\begin{equation}
-	{\boldsymbol{\beta}}_{j, (r)}^{(s)} = \left(\boldsymbol{A}_{j, (r)}^{(s)} \right)^{-1} \boldsymbol{H}^{(s)'}\boldsymbol{Y}_j,
+	{\mathbf{\beta}}_{j, (r)}^{(s)} = \left(\mathbf{A}_{j, (r)}^{(s)} \right)^{-1} \mathbf{H}^{(s)'}\mathbf{Y}_j,
 	\end{equation}
 }
 
@@ -565,31 +584,32 @@ Y la solución es:
 	Se define la función objetivo a minimizar como el conjunto de las minimizaciones individuales,
 	
 	\begin{eqnarray}
-		\phi(f_s|C,\lambda) = \text{reg}(f_s)+ C \text{fit}(f_s)+ \lambda \text{ div}(f_s|f_1,\ldots,f_S) = \\
- \Vert \boldsymbol{\beta}_s\Vert^2 + C\Vert \textbf{f}_s-\textbf{y}\Vert^2-\lambda \Vert \textbf{f}_k-\bar{ \textbf{f}}\Vert^2.
+		\Phi(f |C, \lambda) = \frac{1}{S} \sum_{s=1}^S \phi(f^{(s)}|C,\lambda) \nonumber\\
+		= \frac{1}{S} \sum_{s=1}^S \text{reg}(f^{(s)})+ C\text{fit}\left( \frac{1}{S} \sum_{s=1}^S f^{(s)}\right) \nonumber\\
+		+\lambda \frac{1}{S} \sum_{s=1}^S \text{div}(f^{(s)}|f_1,\ldots,f^{(S)})
 	\end{eqnarray}
 	
 	\begin{equation}
-	\left( \frac{\mathbf{I}}{\gamma}+\textbf{H}_k'\textbf{H}_k \right) \boldsymbol{\beta}_k + (1 + \delta) \sum_{s\neq k} (\textbf{H}_k'\textbf{H}_s) \boldsymbol{\beta}_s = (S + \delta (S - 1))\textbf{H}_k'\textbf{y},
+	\left( \frac{\mathbf{I}}{\gamma}+\mathbf{H}_k'\mathbf{H}_k \right) \mathbf{\beta}_k + (1 + \delta) \sum_{s\neq k} (\mathbf{H}_k'\mathbf{H}_s) \mathbf{\beta}_s = (S + \delta (S - 1))\mathbf{H}_k'\mathbf{y},
 	\end{equation}
 	
 	\begin{equation}\arraycolsep=1.0pt
-	\textbf{A} =  \begin{pmatrix}
-	& \frac{\mathbf{I}}{\gamma}+ \textbf{H}_1'\textbf{H}_1 &\ldots& (1 + \delta) \textbf{H}_1'\textbf{H}_s  & \ldots & (1 + \delta) \textbf{H}_1'\textbf{H}_S  \\
+	\mathbf{A} =  \begin{pmatrix}
+	& \frac{\mathbf{I}}{\gamma}+ \mathbf{H}_1'\mathbf{H}_1 &\ldots& (1 + \delta) \mathbf{H}_1'\mathbf{H}_s  & \ldots & (1 + \delta) \mathbf{H}_1'\mathbf{H}_S  \\
 	& \vdots & \ddots & \vdots & \vdots & \vdots \\
-	& (1 + \delta) \textbf{H}_s'\textbf{H}_1 & \ldots & \frac{\mathbf{I}}{\gamma} + \textbf{H}_s'\textbf{H}_s & \ldots & (1 + \delta) \textbf{H}_s'\textbf{H}_S\\
+	& (1 + \delta) \mathbf{H}_s'\mathbf{H}_1 & \ldots & \frac{\mathbf{I}}{\gamma} + \mathbf{H}_s'\mathbf{H}_s & \ldots & (1 + \delta) \mathbf{H}_s'\mathbf{H}_S\\
 	& \vdots & \vdots & \vdots & \ddots & \vdots \\
-	& (1 + \delta) \textbf{H}_S'\textbf{H}_1 & \ldots & (1 + \delta) \textbf{H}_S'\textbf{H}_s & \ldots & \frac{\mathbf{I}}{\gamma}+ \textbf{H}_S'\textbf{H}_S
+	& (1 + \delta) \mathbf{H}_S'\mathbf{H}_1 & \ldots & (1 + \delta) \mathbf{H}_S'\mathbf{H}_s & \ldots & \frac{\mathbf{I}}{\gamma}+ \mathbf{H}_S'\mathbf{H}_S
 	\end{pmatrix}
 	\end{equation}
 	
 	\begin{equation}
-	\boldsymbol{\beta}=\textbf{A}^{-1}(S + \delta (S - 1) ) \textbf{H}'\textbf{y},
+	\mathbf{\beta}=\mathbf{A}^{-1}(S + \delta (S - 1) ) \mathbf{H}'\mathbf{y},
 	\end{equation}
 	
 }
 
-\frame[allowframebreaks]{\frametitle{Resultados I}
+\frame{\frametitle{Resultados I}
 	
 	\begin{figure}[H]
 			\centering
@@ -597,10 +617,9 @@ Y la solución es:
 			\caption{Gráfica de rendimiento.}
 			\label{FigSmall:GNCELM-performance}
 	\end{figure}
-
 }
 
-\frame[allowframebreaks]{\frametitle{Resultados II}
+\frame{\frametitle{Resultados II}
 	
 	\begin{figure}[H]
 		\centering
@@ -617,9 +636,9 @@ Y la solución es:
 	\textbf{Ventajas}
 	
 	\begin{enumerate}
-		\item Inversión matricial única, resultado exacto.
-		\item Todos los elementos del ensemble se resuelven de una vez, y aportan lo mismo.
+		\item Inversión matricial única, resultado exacto. Todos los elementos del ensemble se resuelven de una vez, y aportan lo mismo.
 		\item Los hiperparámetros intervienen en la resolución matricial.
+		\item Reducción del error de conjunto, no individual.
 	\end{enumerate}
 	
 	\textbf{Desventajas}
